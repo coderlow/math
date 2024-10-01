@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математические вычисления</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #db4a2b;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4e4edd;
+        }
+        div {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Математические вычисления</h1>
+    
+    <!-- Главное меню -->
+    <h2>Главное меню</h2>
+    <button onclick="showSection('percentSection')">Найти процент</button>
+    <button onclick="showSection('gcdLcmSection')">НОК и НОД</button>
+    <button onclick="showSection('averageSection')">Среднее арифметическое</button>
+    <button onclick="showSection('powerSection')">Возведение в степень</button>
+    <button onclick="showSection('ageCalculatorSection')">Калькулятор возраста</button>
+    <button onclick="showSection('bmiCalculatorSection')">Калькулятор ИМТ</button>
+    <button onclick="showSection('unitConverterSection')">Конвертер единиц</button>
+    <button onclick="showSection('dateCalculatorSection')">Календарь</button>
+    <button onclick="showSection('factorialSection')">Факториал</button>
+    <button onclick="showSection('randomPasswordSection')">Генератор паролей</button>
+    <button onclick="showSection('calorieCalculatorSection')">Калькулятор калорий</button>
+    <button onclick="showSection('areaVolumeCalculatorSection')">Калькулятор площади и объема</button>
+
+    <!-- Найти процент -->
+    <div id="percentSection" style="display:none;">
+        <h2>Найти процент</h2>
+        <input type="number" id="percentValue" placeholder="Введите значение" />
+        <input type="number" id="percentOf" placeholder="Введите процент" />
+        <button onclick="calculatePercent()">Найти процент</button>
+        <div id="percentResult"></div>
+    </div>
+
+    <!-- НОК и НОД -->
+    <div id="gcdLcmSection" style="display:none;">
+        <h2>НОК и НОД</h2>
+        <input type="text" id="numbersGcdLcm" placeholder="Введите числа через запятую" />
+        <button onclick="calculateGCD()">Найти НОД</button>
+        <button onclick="calculateLCM()">Найти НОК</button>
+        <div id="gcdResult"></div>
+        <div id="lcmResult"></div>
+    </div>
+
+    <!-- Среднее арифметическое -->
+    <div id="averageSection" style="display:none;">
+        <h2>Среднее арифметическое</h2>
+        <input type="text" id="numbersAverage" placeholder="Введите числа через запятую" />
+        <button onclick="calculateAverage()">Рассчитать среднее</button>
+        <div id="averageResult"></div>
+    </div>
+
+    <!-- Возведение в степень -->
+    <div id="powerSection" style="display:none;">
+        <h2>Возведение в степень</h2>
+        <input type="number" id="base" placeholder="Основание" />
+        <input type="number" id="exponent" placeholder="Степень" />
+        <button onclick="calculatePower()">Рассчитать</button>
+        <div id="powerResult"></div>
+    </div>
+
+    <!-- Калькулятор возраста -->
+    <div id="ageCalculatorSection" style="display:none;">
+        <h2>Калькулятор возраста</h2>
+        <input type="date" id="birthDate" />
+        <button onclick="calculateAge()">Рассчитать возраст</button>
+        <div id="ageResult"></div>
+    </div>
+
+    <!-- Калькулятор ИМТ -->
+    <div id="bmiCalculatorSection" style="display:none;">
+        <h2>Калькулятор ИМТ</h2>
+        <input type="number" id="bmiWeight" placeholder="Вес (кг)" />
+        <input type="number" id="bmiHeight" placeholder="Рост (см)" />
+        <button onclick="calculateBMI()">Рассчитать ИМТ</button>
+        <div id="bmiResult"></div>
+    </div>
+
+    <!-- Конвертер единиц -->
+    <div id="unitConverterSection" style="display:none;">
+        <h2>Конвертер единиц</h2>
+        <input type="number" id="lengthValue" placeholder="Введите значение (м)" />
+        <select id="lengthUnit">
+            <option value="cm">Сантиметры</option>
+            <option value="mm">Миллиметры</option>
+            <option value="km">Километры</option>
+            <option value="m">Метры</option>
+        </select>
+        <button onclick="convertLength()">Конвертировать</button>
+        <div id="lengthResult"></div>
+    </div>
+
+    <!-- Календарь -->
+    <div id="dateCalculatorSection" style="display:none;">
+        <h2>Календарь с расчётом дней</h2>
+        <input type="date" id="startDate" />
+        <input type="date" id="endDate" />
+        <button onclick="calculateDays()">Рассчитать дни</button>
+        <div id="daysResult"></div>
+    </div>
+
+    <!-- Факториал -->
+    <div id="factorialSection" style="display:none;">
+        <h2>Факториал</h2>
+        <input type="number" id="factorialNumber" placeholder="Введите число" />
+        <button onclick="calculateFactorial()">Рассчитать факториал</button>
+        <div id="factorialResult"></div>
+    </div>
+
+    <!-- Генератор случайных паролей -->
+    <div id="randomPasswordSection" style="display:none;">
+        <h2>Генератор случайных паролей</h2>
+        <input type="number" id="passwordLength" placeholder="Длина пароля" />
+        <button onclick="generateRandomPassword()">Сгенерировать пароль</button>
+        <div id="randomPasswordResult"></div>
+    </div>
+
+    <!-- Калькулятор калорий -->
+    <div id="calorieCalculatorSection" style="display:none;">
+        <h2>Калькулятор калорий</h2>
+        <input type="number" id="calorieAge" placeholder="Возраст (лет)" />
+        <input type="number" id="calorieWeight" placeholder="Вес (кг)" />
+        <input type="number" id="calorieHeight" placeholder="Рост (см)" />
+        <select id="activityLevel">
+            <option value="">Выберите уровень активности</option>
+            <option value="1.2">Малоподвижный (сидячая работа)</option>
+            <option value="1.375">Небольшая активность (легкие упражнения 1-3 дня в неделю)</option>
+            <option value="1.55">Умеренная активность (умеренные упражнения 3-5 дней в неделю)</option>
+            <option value="1.725">Высокая активность (интенсивные упражнения 6-7 дней в неделю)</option>
+            <option value="1.9">Экстремальная активность (физическая работа или тренировки дважды в день)</option>
+        </select>
+        <button onclick="calculateCalories()">Рассчитать калории</button>
+        <div id="calorieResult"></div>
+    </div>
+
+    <!-- Калькулятор площади и объема -->
+    <div id="areaVolumeCalculatorSection" style="display:none;">
+        <h2>Калькулятор площади и объема</h2>
+        <select id="shape" onchange="showShapeInputs()">
+            <option value="">Выберите фигуру</option>
+            <option value="square">Квадрат</option>
+            <option value="circle">Круг</option>
+            <option value="cube">Куб</option>
+            <option value="sphere">Сфера</option>
+        </select>
+
+        <div id="squareInput" style="display:none;">
+            <input type="number" id="squareSide" placeholder="Сторона квадрата" />
+            <button onclick="calculateSquareArea()">Площадь квадрата</button>
+            <div id="squareResult"></div>
+        </div>
+
+        <div id="circleInput" style="display:none;">
+            <input type="number" id="circleRadius" placeholder="Радиус круга" />
+            <button onclick="calculateCircleArea()">Площадь круга</button>
+            <div id="circleResult"></div>
+        </div>
+
+        <div id="cubeInput" style="display:none;">
+            <input type="number" id="cubeSide" placeholder="Сторона куба" />
+            <button onclick="calculateCubeVolume()">Объем куба</button>
+            <div id="cubeResult"></div>
+        </div>
+
+        <div id="sphereInput" style="display:none;">
+            <input type="number" id="sphereRadius" placeholder="Радиус сферы" />
+            <button onclick="calculateSphereVolume()">Объем сферы</button>
+            <div id="sphereResult"></div>
+        </div>
+    </div>
+
+<button class="instagram-button" onclick="window.open('https://www.instagram.com/bilim_az/', '_blank')">Bilim.Az</button>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = [
+                'percentSection', 'gcdLcmSection', 'averageSection',
+                'powerSection', 'ageCalculatorSection', 'bmiCalculatorSection',
+                'unitConverterSection', 'dateCalculatorSection', 'factorialSection',
+                'randomPasswordSection', 'calorieCalculatorSection', 'areaVolumeCalculatorSection'
+            ];
+            sections.forEach(section => {
+                document.getElementById(section).style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Функции для вычислений
+        function calculatePercent() {
+            const value = parseFloat(document.getElementById('percentValue').value);
+            const percent = parseFloat(document.getElementById('percentOf').value);
+            const result = (value * percent) / 100;
+            document.getElementById('percentResult').innerText = `Результат: ${result}`;
+        }
+
+        function gcd(a, b) {
+            return b === 0 ? a : gcd(b, a % b);
+        }
+
+        function lcm(a, b) {
+            return (a * b) / gcd(a, b);
+        }
+
+        function calculateGCD() {
+            const numbers = document.getElementById('numbersGcdLcm').value.split(',').map(Number);
+            const result = numbers.reduce(gcd);
+            document.getElementById('gcdResult').innerText = `НОД: ${result}`;
+        }
+
+        function calculateLCM() {
+            const numbers = document.getElementById('numbersGcdLcm').value.split(',').map(Number);
+            const result = numbers.reduce(lcm);
+            document.getElementById('lcmResult').innerText = `НОК: ${result}`;
+        }
+
+        function calculateAverage() {
+            const numbers = document.getElementById('numbersAverage').value.split(',').map(Number);
+            const average = numbers.reduce((a, b) => a + b, 0) / numbers.length;
+            document.getElementById('averageResult').innerText = `Среднее: ${average}`;
+        }
+
+        function calculatePower() {
+            const base = parseFloat(document.getElementById('base').value);
+            const exponent = parseFloat(document.getElementById('exponent').value);
+            const result = Math.pow(base, exponent);
+            document.getElementById('powerResult').innerText = `Результат: ${result}`;
+        }
+
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            const adjustedAge = monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate()) ? age - 1 : age;
+            document.getElementById('ageResult').innerText = `Возраст: ${adjustedAge} лет`;
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            const height = parseFloat(document.getElementById('bmiHeight').value) / 100; // Convert cm to m
+            const bmi = weight / (height * height);
+            document.getElementById('bmiResult').innerText = `Индекс массы тела (ИМТ): ${bmi.toFixed(2)}`;
+        }
+
+        function convertLength() {
+            const value = parseFloat(document.getElementById('lengthValue').value);
+            const unit = document.getElementById('lengthUnit').value;
+            let result;
+            switch (unit) {
+                case 'cm':
+                    result = value * 100; // Convert to cm
+                    break;
+                case 'mm':
+                    result = value * 1000; // Convert to mm
+                    break;
+                case 'km':
+                    result = value / 1000; // Convert to km
+                    break;
+                case 'm':
+                    result = value; // Keep as m
+                    break;
+            }
+            document.getElementById('lengthResult').innerText = `Результат: ${result} метры`;
+        }
+
+        function calculateDays() {
+            const start = new Date(document.getElementById('startDate').value);
+            const end = new Date(document.getElementById('endDate').value);
+            const daysDifference = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            document.getElementById('daysResult').innerText = `Разница в днях: ${daysDifference} дней`;
+        }
+
+        function calculateFactorial() {
+            const number = parseInt(document.getElementById('factorialNumber').value);
+            let factorial = 1;
+            for (let i = 1; i <= number; i++) {
+                factorial *= i;
+            }
+            document.getElementById('factorialResult').innerText = `Факториал: ${factorial}`;
+        }
+
+        function generateRandomPassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;:',.<>?/";
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * charset.length);
+                password += charset[randomIndex];
+            }
+            document.getElementById('randomPasswordResult').innerText = `Сгенерированный пароль: ${password}`;
+        }
+
+        function calculateCalories() {
+            const age = parseFloat(document.getElementById('calorieAge').value);
+            const weight = parseFloat(document.getElementById('calorieWeight').value);
+            const height = parseFloat(document.getElementById('calorieHeight').value);
+            const activityLevel = parseFloat(document.getElementById('activityLevel').value);
+            const bmr = 10 * weight + 6.25 * height - 5 * age + 5; // Mifflin-St Jeor Equation for men
+            const calories = bmr * activityLevel;
+            document.getElementById('calorieResult').innerText = `Калории для поддержания веса: ${calories.toFixed(2)}`;
+        }
+
+        function showShapeInputs() {
+            const shape = document.getElementById('shape').value;
+            document.getElementById('squareInput').style.display = shape === 'square' ? 'block' : 'none';
+            document.getElementById('circleInput').style.display = shape === 'circle' ? 'block' : 'none';
+            document.getElementById('cubeInput').style.display = shape === 'cube' ? 'block' : 'none';
+            document.getElementById('sphereInput').style.display = shape === 'sphere' ? 'block' : 'none';
+        }
+
+        function calculateSquareArea() {
+            const side = parseFloat(document.getElementById('squareSide').value);
+            const area = side * side;
+            document.getElementById('squareResult').innerText = `Площадь квадрата: ${area}`;
+        }
+
+        function calculateCircleArea() {
+            const radius = parseFloat(document.getElementById('circleRadius').value);
+            const area = Math.PI * radius * radius;
+            document.getElementById('circleResult').innerText = `Площадь круга: ${area.toFixed(2)}`;
+        }
+
+        function calculateCubeVolume() {
+            const side = parseFloat(document.getElementById('cubeSide').value);
+            const volume = side * side * side;
+            document.getElementById('cubeResult').innerText = `Объем куба: ${volume}`;
+        }
+
+        function calculateSphereVolume() {
+            const radius = parseFloat(document.getElementById('sphereRadius').value);
+            const volume = (4/3) * Math.PI * Math.pow(radius, 3);
+            document.getElementById('sphereResult').innerText = `Объем сферы: ${volume.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
+
